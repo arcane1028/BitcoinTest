@@ -75,6 +75,7 @@ center_y = centers['txID']
 plt.scatter(r['addrID'], r['txID'], c=r['predict'], alpha=0.7)
 plt.scatter(center_x, center_y, s=50, marker='D', c='r')
 
+plt.savefig("test.png")
 plt.show()
 
 ks = range(1, 10)

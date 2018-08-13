@@ -59,6 +59,7 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 
+*.png
 *.csv
 *.zip
 .idea

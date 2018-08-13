@@ -64,6 +64,7 @@ print("size : ", result_out.size)
 
 result_out.to_csv("data_out.csv", encoding='utf-8', index=False)
 del result_out
+print("==End==")
 
 """
 print(np.any(np.isnan(result)))  # false
