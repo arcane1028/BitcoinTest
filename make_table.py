@@ -12,13 +12,13 @@ transaction_out_header = ["txID", "seq", "addrID", "sum"]
 
 # read csv
 block_hash = pd.read_csv("data/bh.CSV", names=block_hash_header)
-print("read block_hash", block_hash.size)
+print("read block_hash",len(block_hash.index))
 transaction = pd.read_csv("data/tx.CSV", names=transaction_header)
-print("read transaction", transaction.size)
+print("read transaction", len(transaction.index))
 transaction_in = pd.read_csv("data/txin.csv", names=transaction_in_header)
-print("read transaction_in", transaction_in.size)
+print("read transaction_in", len(transaction_in.index))
 transaction_out = pd.read_csv("data/txout.csv", names=transaction_out_header)
-print("read transaction_out", transaction_out.size)
+print("read transaction_out", len(transaction_out.index))
 
 """
 print(block_hash)
@@ -47,7 +47,7 @@ print("==result_in==")
 print(result_in.head())
 print("is nan(false) : ", np.any(np.isnan(result_in)))  # false
 print("is finite(true) : ", np.all(np.isfinite(result_in)))  # true
-print("size : ", result_in.size)
+print("size : ", len(result_in.index))
 
 result_in.to_csv("data_in.csv", encoding='utf-8', index=False)
 del result_in
@@ -60,7 +60,7 @@ print("==result_out==")
 print(result_out.head())
 print("is nan(false) : ", np.any(np.isnan(result_out)))  # false
 print("is finite(true) : ", np.all(np.isfinite(result_out)))  # true
-print("size : ", result_out.size)
+print("size : ", len(result_out.index))
 
 result_out.to_csv("data_out.csv", encoding='utf-8', index=False)
 del result_out

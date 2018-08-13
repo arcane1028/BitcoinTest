@@ -14,7 +14,7 @@ pd.set_option('display.max_columns', None)
 print("read csv")
 data = pd.read_csv("data_in.csv")
 # data = data.drop(columns=['Unnamed: 0.1'])
-print(data.head())
+print(len(data.index))
 # np.any(np.isnan(data))
 # np.all(np.isfinite(data))
 
