@@ -2,10 +2,12 @@
 import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import Normalizer
 from sklearn.pipeline import make_pipeline
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
+import pickle as pl
 
 plt.switch_backend('agg')
 pd.set_option('display.max_columns', None)
@@ -37,7 +39,7 @@ print(np.all(np.isfinite(data)))
 
 # create model and prediction
 print("create k-mean")
-scaler = StandardScaler()
+scaler = Normalizer()
 model = KMeans(n_clusters=9, algorithm='auto')
 pipeline = make_pipeline(scaler, model)
 pipeline.fit(data)
@@ -53,6 +55,10 @@ centers = pd.DataFrame(model.cluster_centers_, columns=list(data))
 center_x = centers['addrID']
 center_y = centers['sum']
 plt.scatter(center_x, center_y, s=50, marker='D', c='r')
+
+fig_handle = plt.figure()
+with open('test.pkl', 'wb') as fid:
+    pl.dump(fig_handle, fid)
 # plt.show()
 plt.savefig("./test.png")
 print("=====End=====")
