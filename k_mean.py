@@ -49,7 +49,7 @@ r = pd.concat([data, predict], axis=1)
 plt.scatter(r['addrID'], r['sum'], c=r['test'], alpha=0.5)
 
 print("create k-mean3")
-centers = pd.DataFrame(pipeline.cluster_centers_, columns=list(data))
+centers = pd.DataFrame(model.cluster_centers_, columns=list(data))
 center_x = centers['addrID']
 center_y = centers['sum']
 plt.scatter(center_x, center_y, s=50, marker='D', c='r')
