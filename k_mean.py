@@ -1,8 +1,8 @@
-
 import pandas as pd
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import Normalizer
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.pipeline import make_pipeline
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -14,51 +14,44 @@ pd.set_option('display.max_columns', None)
 
 # read csv
 print("read csv")
-data = pd.read_csv("data_in.csv")
-# data = data.drop(columns=['Unnamed: 0.1'])
-print(len(data.index))
-# np.any(np.isnan(data))
-# np.all(np.isfinite(data))
+data_in = pd.read_csv("data_in.csv")
+print(len(data_in.index))
 
-# data = data.drop(columns=['block_timestamp'])
-# data.dropna()
-
-# test = data.sample(1000)
-# print(test.head())
-
-"""
-# check nan
-print(np.any(np.isnan(data)))
-print(np.all(np.isfinite(data)))
-
-data = data.dropna()
-
-print(np.any(np.isnan(data)))
-print(np.all(np.isfinite(data)))
-"""
+data = data_in.sample(100000)
+data = data.reset_index()
 
 # create model and prediction
 print("create k-mean")
-scaler = Normalizer()
-model = KMeans(n_clusters=9, algorithm='auto')
+"""
+scaler = StandardScaler()
+model = KMeans(n_clusters=3, algorithm='auto')
 pipeline = make_pipeline(scaler, model)
 pipeline.fit(data)
 predict = pd.DataFrame(pipeline.predict(data))
-predict.columns = ['test']
+predict.columns = ['predict']
+"""
+model = KMeans(n_clusters=3, algorithm='auto')
+model.fit(data)
+predict = pd.DataFrame(model.predict(data))
+predict.columns = ['predict']
 
-print("create k-mean2")
+print("concat")
 r = pd.concat([data, predict], axis=1)
-plt.scatter(r['addrID'], r['sum'], c=r['test'], alpha=0.5)
 
-print("create k-mean3")
+print("plot")
 centers = pd.DataFrame(model.cluster_centers_, columns=list(data))
 center_x = centers['addrID']
 center_y = centers['sum']
-plt.scatter(center_x, center_y, s=50, marker='D', c='r')
 
 fig_handle = plt.figure()
+
+plt.scatter(r['addrID'], r['sum'], c=r['predict'], alpha=0.5)
+plt.scatter(center_x, center_y, s=50, marker='D', c='r')
+plt.savefig("./test.png")
+
 with open('test.pkl', 'wb') as fid:
     pl.dump(fig_handle, fid)
+
 # plt.show()
-plt.savefig("./test.png")
+
 print("=====End=====")

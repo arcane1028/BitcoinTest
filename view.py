@@ -11,4 +11,4 @@ import pickle as pl
 with open('test.pkl', 'rb') as fid:
     fig = pl.load(fid)
 
-fig.show()
+plt.show()
