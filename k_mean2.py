@@ -37,7 +37,6 @@ r = pd.concat([data, predict], axis=1)
 # plt.scatter(r['addrID'], r['txID'], c=r['predict'], alpha=0.5)
 
 
-
 """
 centers = pd.DataFrame(model.cluster_centers_, columns=list(data))
 center_x = centers['addrID']
@@ -85,4 +84,3 @@ for k in ks:
     model = KMeans(n_clusters=k)
     model.fit(data)
     inertias.append(model.inertia_)
-
